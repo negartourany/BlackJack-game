@@ -1,0 +1,130 @@
+# the black jack game 1.0
+
+# import
+import random
+from hangman_art import logo
+
+# greeting and vars
+print("Welcome to this game! your're going to spend a bunch of your good moments here!, enjoy!")
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+player_starter_score=0
+computer_starter_score=0
+computer_score=0
+player_score=0
+again=""
+# functions 
+# starter function
+def starter ():
+    playing_game= input("Do you want to play this game? type 'y' or 'n': ").lower()
+    global again
+    if playing_game == "n":
+        global another_card
+        again = False
+        another_card=False
+        print("Thank you for your answer!")
+    elif playing_game == "y":
+        again = True
+
+# computer score calc
+def computer_score_counter():
+    global computer_score
+    for i in computer_starter_card:
+        computer_score+=i
+
+# player score calc
+def player_score_counter():
+    global player_score
+    for i in player_starter_card:
+        player_score+=i
+    # print(player_score)
+
+# player doesn't want a card
+# def no_card():
+    
+# the probable while loop
+
+starter()
+while again == True:
+    player_starter_score=0
+    computer_starter_score=0
+    computer_score=0
+    player_score=0
+    print(logo)
+    player_starter_card=random.sample(cards,2)
+    computer_starter_card= random.sample(cards,2)
+
+    # adding for loop for adding the cards
+    for i in player_starter_card:
+        player_starter_score+=i
+    for i in computer_starter_card:
+        computer_starter_score+=i
+    print(f"your cards: {player_starter_card}, current score: {player_starter_score}")
+    print(f"computer first card: {computer_starter_card[0]}")
+
+    # checking whether each of them is 21
+    if computer_starter_score==21:
+        print("The computer has a BlackJack!! you lost sucker!!")
+        starter()
+        continue
+    elif player_starter_score ==21:
+        print("'''''''''''''''''''''''''''''''''")
+        print("You have a blackJack!!! you WON!")
+        print("'''''''''''''''''''''''''''''''''")
+        starter()
+        continue
+    
+    # if player wants another card
+    another_card= input("Type 'y' to get another card, type 'n' to pass: ").lower()
+
+    # when the player doesn't want another card
+    if another_card == "n":
+        while computer_score<player_starter_score and computer_score<=21:
+            computer_starter_card.append(random.choice(cards))
+            computer_score_counter()
+        print(f"your card are: {player_starter_card}, you're final score is {player_starter_score}")
+        print(f"Computer's final score is {computer_score}")
+        if computer_score>player_starter_score and computer_score<=21:
+            print("'''''''''''''''''''''''''''''''''")
+            print("YOu LOst :(")
+            print("'''''''''''''''''''''''''''''''''")
+        else:
+            print("'''''''''''''''''''''''''''''''''")
+            print("YOU WOON!!")
+            print("'''''''''''''''''''''''''''''''''")
+        starter()
+        continue
+
+    # when the player wants another card
+
+    while another_card=="y":
+        if another_card=="y":
+            player_starter_card.append(random.choice(cards))
+            player_score_counter()
+            print(f"Your score is: {player_score}")
+            if player_score >21:
+                print("'''''''''''''''''''''''''''''''''")
+                print("YOu LOst!!, You went over.")
+                print("'''''''''''''''''''''''''''''''''")
+                print(f"you're final hand is {player_starter_card}")
+                print(f"you're final score is: {player_score}")
+                print(f"Computer's score is: {computer_starter_score}")
+                starter()
+                break
+            else:
+                another_card= input("Do you want another card?").lower()
+    if another_card =="n":
+        while computer_score<player_score and computer_score<=21:
+            computer_starter_card.append(random.choice(cards))
+            computer_score_counter()
+        print(f"your card are: {player_starter_card}, you're final score is {player_score}")
+        print(f"Computer's final score is {computer_score}")
+        if computer_score>player_score and computer_score<=21:
+            print("'''''''''''''''''''''''''''''''''")
+            print("YOu LOst :(")
+            print("'''''''''''''''''''''''''''''''''")
+        else:
+            print("'''''''''''''''''''''''''''''''''")
+            print("YOU WOON!!")
+            print("'''''''''''''''''''''''''''''''''")
+        starter()
+   
